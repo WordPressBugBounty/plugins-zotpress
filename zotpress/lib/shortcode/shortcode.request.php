@@ -952,8 +952,11 @@ function Zotpress_shortcode_request( $zpr=false, $checkcache=false )
 					$zp_all_the_data[$id]->bib = esc_html($zp_all_the_data[$id]->bib);
 
 				// 7.4: Abstract breaking when unicode exists
+				// if ( isset($zp_all_the_data[$id]->data->abstractNote) )
+				// 	$zp_all_the_data[$id]->data->abstractNote = mb_convert_encoding($zp_all_the_data[$id]->data->abstractNote, 'UTF-8', 'UCS-2BE');
+				// 7.4.1: Now appears in another language sometimes ... fix by Jeremy Varnham (@jvarn13)
 				if ( isset($zp_all_the_data[$id]->data->abstractNote) )
-					$zp_all_the_data[$id]->data->abstractNote = mb_convert_encoding($zp_all_the_data[$id]->data->abstractNote, 'UTF-8', 'UCS-2BE');
+				    $zp_all_the_data[$id]->data->abstractNote = esc_html($zp_all_the_data[$id]->data->abstractNote);
 			}
 
 			// Re-sort with order of entry if bib and default sort

@@ -58,9 +58,12 @@ function Zotpress_get_cite_AJAX()
 		header('Content-Description: Cite with RIS');
 		// @readfile($zp_import_url);
 		$content = $wp_filesystem->get_contents( $zp_import_url );
+		// 7.4.1: Trying sanitize
+		$content = sanitize_textarea_field( $content );
 
 		if ( $content !== false )
-			var_dump( $content );
+			// 7.4.1: Replacing var_dump after sanitizing
+			echo $content;
 		else
 			echo 'Could not read the file';
 

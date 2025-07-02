@@ -12,7 +12,8 @@ global $wpdb; ?>
 		<?php
 
 		// If there's accounts ...
-		if ( $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."zotpress;") > 1 )
+		// 7.4.1: Thank you to Jeremy Varnham (@jvarn13) for the fix
+		if ( $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."zotpress;") >= 1 )
 		{
 			// See if default exists
 			$zp_default_account = false;
