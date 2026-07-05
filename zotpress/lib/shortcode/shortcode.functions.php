@@ -685,15 +685,16 @@ function Zotpress_prep_ajax_request_vars($wpdb, $atts=false, $is_zplib=false) {
 		$zpr["order"] = strtolower(sanitize_text_field(wp_strip_all_tags($atts['sort'])));
 
 	// Show images, show tags, downloadable, inclusive, notes, abstracts, citeable
+	// 7.4.3: Added condition via André Lambelet: || $atts['showimage'] == "openlib"
 	$zpr["showimage"] = false;
 	if ( isset($atts['showimage']) 
-			&& ( $atts['showimage'] == "yes" || $atts['showimage'] == "true" || $atts['showimage'] === true || $atts['showimage'] == 1 ) )
+			&& ( $atts['showimage'] == "yes" || $atts['showimage'] == "true" || $atts['showimage'] === true || $atts['showimage'] == 1 || $atts['showimage'] == "openlib" ) )
 		$zpr["showimage"] = sanitize_text_field(wp_strip_all_tags($atts['showimage']));
 	elseif ( isset($atts['image']) 
-			&& ( $atts['image'] == "yes" || $atts['image'] == "true" || $atts['image'] === true || $atts['image'] == 1 ) )
+			&& ( $atts['image'] == "yes" || $atts['image'] == "true" || $atts['image'] === true || $atts['image'] == 1 || $atts['image'] == "openlib" ) )
 		$zpr["showimage"] = sanitize_text_field(wp_strip_all_tags($atts['image']));
 	elseif ( isset($atts['images']) 
-			&& ( $atts['images'] == "yes" || $atts['images'] == "true" || $atts['images'] === true || $atts['images'] == 1 ) )
+			&& ( $atts['images'] == "yes" || $atts['images'] == "true" || $atts['images'] === true || $atts['images'] == 1 || $atts['images'] == "openlib" ) )
 		$zpr["showimage"] = sanitize_text_field(wp_strip_all_tags($atts['images']));
 
 	// Set value
@@ -823,12 +824,55 @@ function Zotpress_prep_ajax_request_vars($wpdb, $atts=false, $is_zplib=false) {
 			// && ( $atts['browsebar'] == "no" || $atts['browsebar'] == "false" || $atts['browsebar'] === false || $atts['browsebar'] == 0 ) )
 			&& ( $atts['browsebar'] != "yes" || $atts['browsebar'] != "true" || $atts['browsebar'] !== true ) )
 		$zpr["browsebar"] = false;
-	// else
-	// 	$zpr["browsebar"] = true;
-	
-	// Special attributes for ZotpressLib //
 
 
+	// 7.4.3: Special attributes for ZotpressInText
+
+	// Pages
+	$zpr["pages"] = false;
+	if ( isset($atts['pages']) )
+		$zpr["pages"] = sanitize_text_field(wp_strip_all_tags($atts['pages']));
+	else if ( isset($atts['page']) )
+		$zpr["pages"] = sanitize_text_field(wp_strip_all_tags($atts['page']));
+
+	// Format
+	$zpr["format"] = false;
+	if ( isset($atts['format']) )
+		$zpr["format"] = sanitize_text_field(wp_strip_all_tags($atts['format']));
+
+	// Brackets
+	$zpr["brackets"] = false;
+	if ( isset($atts['brackets']) )
+		$zpr["brackets"] = sanitize_text_field(wp_strip_all_tags($atts['brackets']));
+	else if ( isset($atts['bracket']) )
+		$zpr["pages"] = sanitize_text_field(wp_strip_all_tags($atts['bracket']));
+
+	// Separator
+	$zpr["separator"] = false;
+	if ( isset($atts['separator']) )
+		if ( $zpr["separator"] == "default" )
+			$zpr["separator"] = false;
+		else
+			$zpr["separator"] = sanitize_text_field(wp_strip_all_tags($atts['separator']));
+
+	// Et al.
+	$zpr["etal"] = false;
+	if ( isset($atts['etal']) )
+		if ( $zpr["etal"] == "default" )
+			$zpr["etal"] = false;
+		else
+			$zpr["etal"] = sanitize_text_field(wp_strip_all_tags($atts['etal']));
+
+	// And
+	$zpr["and"] = false;
+	if ( isset($atts['and']) )
+		if ( $zpr["and"] == "default" )
+			$zpr["and"] = false;
+		else
+			$zpr["and"] = sanitize_text_field(wp_strip_all_tags($atts['and']));
+
+
+	// Request variables:
 
 	$zpr["request_start"] = 0;
 	if ( isset($atts['request_start']) )

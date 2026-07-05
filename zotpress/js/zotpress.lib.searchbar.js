@@ -42,6 +42,8 @@ jQuery(document).ready(function()
 			zpSearchBarParams += "&item_type=items";
 			zpSearchBarParams += "&downloadable="+jQuery(".ZOTPRESS_AC_DOWNLOAD").val();
 			zpSearchBarParams += "&style="+jQuery(".ZP_STYLE").text();
+			// 7.4.3: Added via @alhrath
+			zpSearchBarParams += "&collection_id="+jQuery(".ZP_COLLECTION_ID").text();
 			zpSearchBarParams += "&sortby="+jQuery(".ZP_SORTBY").text();
 			zpSearchBarParams += "&order="+jQuery(".ZP_ORDER").text();
 			zpSearchBarParams += "&citeable="+jQuery(".ZOTPRESS_AC_CITE").val();
@@ -250,8 +252,8 @@ jQuery(document).ready(function()
 						jQuery(".zp-List .zpSearchLoading").removeClass("show");
 
 						// First, deal with any errors or blank results
-						if ( ui.content == "0"
-								|| ui.content[0].label == "empty" )
+						if ( ui.content === "0"
+								|| ( ui.content.length !== 0 && ui.content[0].label == "empty" ) )
 						{
 							if ( jQuery(".zpSearchResultsPaging").length > 0 ) {
 
