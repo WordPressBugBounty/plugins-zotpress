@@ -1072,6 +1072,7 @@ function Zotpress_shortcode_request( $zpr=false, $checkcache=false )
 
 				if ( $zp_updateneeded )
 					$zp_output .= '<span class="ZP_UPDATENEEDED ZP_ATTR">true</span>';
+				$zp_output .= '<span class="ZP_CACHETIMER ZP_ATTR">'.get_option("Zotpress_DefaultCacheTimer").'</span>';
 
 				// $zp_output .= '<span class="ZP_USED_CACHE ZP_ATTR">true</span>';
 				$zp_output .= '<span class="ZP_JSON ZP_ATTR">'.rawurlencode($zp_json_encoded).'</span>';
